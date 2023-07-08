@@ -7,8 +7,8 @@ assignees: ''
 
 ---
 
-\---
+---
 <Enter your description here>
-\---
+---
 
 <Enter your blog post in [markdown format](https://www.markdownguide.org/basic-syntax/)>
