@@ -1,7 +1,7 @@
 ---
 name: New blog post
 about: To create a new blog post
-title: ''
+title: "<Enter your blog title here>"
 labels: blog post
 assignees: ''
 
