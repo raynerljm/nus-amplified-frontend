@@ -1,5 +1,5 @@
 {
-  "name": "amplified-frontend",
+  "name": "nus-amplified-website",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@octokit/graphql": "^6.0.1",
     "@types/node": "20.4.0",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
