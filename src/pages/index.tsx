@@ -4,6 +4,7 @@ import { getPosts } from "@/lib/api/posts";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { extractDescriptionAndContent } from "@/lib/post";
 import Link from "next/link";
+import { isoStringToDMY } from "@/lib/dates";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,11 +24,11 @@ export default function Home({
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`flex min-h-screen flex-col bg-gradient-to-b from-black to-[#2C1630] p-24 ${inter.className}`}
     >
-      <h1 className="text-lg mb-8">Blog Posts</h1>
-      <div className="flex gap-4 flex-col">
-        {/* // TODO: */}
+      <h1 className="text-4xl text-[#BC41D0] mb-24">Blog.</h1>
+      <div className="flex gap-10 flex-col px-12 py-14 bg-[#171717] bg-opacity-70 rounded-3xl">
+        {/* // TODO: types */}
         {posts.map((post: any) => {
           const { descriptionString } = extractDescriptionAndContent(
             post.bodyHTML
@@ -35,9 +36,17 @@ export default function Home({
 
           return (
             <Link href={`/blog/${post.number}`} key={post.number}>
-              <article className="border-2 border-red-500">
-                <h2 className="text-md mb-2">{post.title}</h2>
-                <p>{descriptionString}</p>
+              <article className="p-12 grid grid-cols-12 gap-12 rounded-3xl bg-[#010101] bg-opacity-30">
+                <div className=" col-span-5 w-full bg-gray-600 grid place-items-center">
+                  Image placeholder
+                </div>
+                <div className="col-span-7 w-full">
+                  <h2 className="text-3xl text-[#BC41D0] mb-5">{post.title}</h2>
+                  <p className="text-xl mb-5">
+                    {isoStringToDMY(post.createdAt)}
+                  </p>
+                  <p className="text-xl">{descriptionString}</p>
+                </div>
               </article>
             </Link>
           );

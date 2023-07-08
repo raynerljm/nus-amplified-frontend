@@ -40,12 +40,12 @@ export default function BlogPost({
 
   return (
     <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
+      className={`flex min-h-screen flex-col bg-gradient-to-b from-black to-[#2C1630] p-24 ${inter.className}`}
     >
       <article className="post">
-        <h1 className="text-5xl font-bold mb-4">{post.title}</h1>
-        <p>{descriptionString}</p>
-        <div className="h-4 bg-red-500 w-full"></div>
+        <h1 className="text-5xl font-bold mb-6">{post.title}</h1>
+        <p className="mb-12">{descriptionString}</p>
+
         <div
           dangerouslySetInnerHTML={{
             __html: contentHTML,
