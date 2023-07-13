@@ -1,41 +1,39 @@
-import { graphql, type GraphQlQueryResponseData } from "@octokit/graphql";
+import { Octokit } from "@octokit/rest";
+import { Issue } from "../types/issues";
 
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const OWNER = "raynerljm";
+const REPO = "nus-amplified-website";
 
-const request = graphql.defaults({
-  headers: {
-    authorization: `token ${GITHUB_TOKEN}`,
-  },
-});
+const octokit = new Octokit();
 
-//TODO:
-export const getPostByNumber = async (num: number) => {
-  const posts = await getPosts();
-  // TODO:
-  return posts.filter((post: any) => {
-    return post.number === num;
-  })[0];
+export const getPostByNumber = async (num: number): Promise<Issue> => {
+  const res = await octokit.rest.issues.get({
+    // headers: {
+    //   authorization: `token ${GITHUB_TOKEN}`,
+    // },
+    mediaType: {
+      format: "full",
+    },
+    issue_number: num,
+    owner: OWNER,
+    repo: REPO,
+  });
+  return res.data;
 };
 
-export const getPosts = async () =>
-  request<GraphQlQueryResponseData>(
-    `
-    query allIssues($owner: String!, $repo: String!) {
-        repository(name: $repo, owner: $owner) {
-          issues(first: 100) {
-            nodes {
-              title
-              number
-              createdAt
-              bodyHTML
-              body
-            }
-          }
-        }
-    }
-    `,
-    {
-      owner: "raynerljm",
-      repo: "nus-amplified-website",
-    }
-  ).then((data) => data.repository.issues.nodes);
+export const getPosts = async (): Promise<Issue[]> => {
+  const res = await octokit.rest.issues.listForRepo({
+    // headers: {
+    //   authorization: `token ${GITHUB_TOKEN}`,
+    // },
+    mediaType: {
+      format: "full",
+    },
+    labels: "blog post",
+    state: "open",
+    owner: OWNER,
+    repo: REPO,
+  });
+  return res.data;
+};
